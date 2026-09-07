@@ -26,11 +26,12 @@ function AppContent() {
       setUsers([]);
       return;
     }
-    findManyByPhone(phone).then((data) => {
-      if (data) {
+
+    fetch(`/api/user/phone/${phone}`)
+      .then((res) => res.json())
+      .then((data) => {
         setUsers(data);
-      }
-    });
+      });
   }, [phone]);
   useEffect(() => {
     console.log("new users", users);
