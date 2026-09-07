@@ -19,6 +19,23 @@ export default function HomeScreen() {
           <Button type="button" onClick={handleAddDevice}>
             {"+ Add Device"}
           </Button>
+          <div className="rounded border-secondary border p-2">
+            <span className="text-foreground">Test accounts:</span>
+            <div className="flex gap-10">
+              <div className="flex flex-col">
+                <span className="text-[13px] font-bold">phone: 0987654321</span>
+                <span className="text-[13px] font-bold">
+                  password: 123456789
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[13px] font-bold">phone: 0987654322</span>
+                <span className="text-[13px] font-bold">
+                  password: 123456789{" "}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
