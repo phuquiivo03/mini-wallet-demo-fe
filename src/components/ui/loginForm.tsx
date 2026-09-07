@@ -17,14 +17,23 @@ function LoginForm() {
   const handleSubmit = () => {
     setLoading(true);
     console.log("authen ", loginData.phone, loginData.password);
-    login(loginData.phone, loginData.password)
+    fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        phone: loginData.phone,
+        password: loginData.password,
+      }),
+    })
       .then((data) => {
         setLoading(false);
-        console.log("set login data: ", data);
-        dispatch(setUser(data));
-        dispatch(setAuthToken(data.authenToken));
-        set(keys.auth.authToken, data.authenToken);
-        set(keys.auth.refeshToken, data.refeshToken);
+        return data.json();
+      })
+      .then((res) => {
+        dispatch(setUser(res));
+        dispatch(setAuthToken(res.authenToken));
+        set(keys.auth.authToken, res.authenToken);
+        set(keys.auth.refeshToken, res.refeshToken);
       })
       .catch((e) => {
         setLoading(false);
