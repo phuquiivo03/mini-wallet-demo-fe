@@ -6,9 +6,10 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const loginResult = await login(body.phone, body.password);
     if (loginResult) return Response.json(loginResult);
+    return Response.error();
   } catch (e) {
     console.log("===============ERROR============");
     console.error(e);
-    return Response.error;
+    return Response.error();
   }
 }
