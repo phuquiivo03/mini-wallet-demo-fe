@@ -38,6 +38,7 @@ function LoginForm() {
       .catch((e) => {
         setLoading(false);
         console.log(e);
+        alert("invalid credential");
       });
   };
 
@@ -72,11 +73,11 @@ function LoginForm() {
           />
           <button
             onClick={handleSubmit}
-            className="rounded-2xl text-white bg-secondary font-bold cursor-pointer hover:opacity-70 mt-4!  relative"
+            className="rounded-2xl text-white bg-secondary font-bold cursor-pointer hover:opacity-70 mt-4!  relative "
           >
             Login
             {loading && (
-              <div className="w-3 h-3 border border-[1px] border-amber-200 animate-spin absolute top-[30%] right-[20px]"></div>
+              <span className="inline-block w-3 h-3 rounded-full border border-white border-[1px] border-t-[0px] border-r-[0px] animate-spin ml-2!"></span>
             )}
           </button>
         </div>

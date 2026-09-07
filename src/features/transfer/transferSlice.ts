@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TransferState = {
-  transferState: "idle" | "processing" | "done";
+  transferState: "idle" | "processing" | "done" | "failed";
 };
 
 const initialState: TransferState = {
@@ -14,7 +14,7 @@ const transferSlice = createSlice({
   reducers: {
     setTransferState: (
       state,
-      action: PayloadAction<"idle" | "processing" | "done">,
+      action: PayloadAction<"idle" | "processing" | "done" | "failed">,
     ) => {
       state.transferState = action.payload;
     },

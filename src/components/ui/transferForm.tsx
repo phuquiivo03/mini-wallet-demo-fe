@@ -30,31 +30,41 @@ function TransferForm({ receiver }: { receiver: User }) {
     message: string;
   }) {
     dispatch(setTransferState("processing"));
-    const job = await createTransaction({
-      fromUserId,
-      toUserId,
-      amount,
-      currency: "VND",
-      message,
-    });
 
-    for (let attempt = 0; attempt < 30; attempt += 1) {
-      if (!user) return;
-      const freshJob = await getJob(job.id);
+    await fetch("/api/transaction", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fromUserId,
+        toUserId,
+        amount,
+        currency: "VND",
+        message,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => data)
+      .catch((e) => {
+        dispatch(setTransferState("failed"));
+      });
 
-      if (freshJob.status === "completed") {
-        //
-        console.log("set complete");
-        dispatch(setTransferState("done"));
-        return;
-      }
+    // for (let attempt = 0; attempt < 30; attempt += 1) {
+    //   if (!user) return;
+    //   const freshJob = await getJob(job.id);
+    //   console.log(job);
+    //   if (freshJob.status === "completed") {
+    //     //
+    //     console.log("set complete");
+    //     dispatch(setTransferState("done"));
+    //     return;
+    //   }
 
-      if (freshJob.status === "failed") {
-        throw new Error("Transfer failed.");
-      }
+    //   if (freshJob.status === "failed") {
+    //     throw new Error("Transfer failed.");
+    //   }
 
-      await delay(2000);
-    }
+    //   await delay(2000);
+    // }
 
     throw new Error("Job polling timeout.");
   }
@@ -101,6 +111,9 @@ function TransferForm({ receiver }: { receiver: User }) {
           className={"hover:opacity-100 opacity-90"}
         >
           Send
+          {transferState === "processing" && (
+            <span className="block w-3 h-3 rounded-full border border-white border-[1px] border-t-[0px] border-r-[0px] animate-spin"></span>
+          )}
         </Button>
       </div>
     </div>

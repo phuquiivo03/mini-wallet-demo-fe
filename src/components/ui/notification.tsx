@@ -1,8 +1,9 @@
 "use client";
+import { setTransferState } from "@/features/transfer/transferSlice";
 import { useWebSocket } from "@/hooks/ueseWebsocket";
 import { WS_EVENT } from "@/lib/websocket/websocket.event";
 import { WebSocketMessage } from "@/lib/websocket/websocket.types";
-import { useAppSelector } from "@/store/hook";
+import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { useEffect, useState } from "react";
 
 type Notificatinon = {
@@ -16,12 +17,14 @@ function Notification(props: Props) {
   const [notify, setNotify] = useState<Notificatinon | undefined>(undefined);
   const [mount, setMount] = useState<boolean>(false);
   const { authToken } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   const ws = useWebSocket(authToken);
   useEffect(() => {
     const client = ws.current;
     if (!client) return;
     const unsub = client.subscribe((message: WebSocketMessage) => {
       if (message.event == WS_EVENT.SEND_NOTIFICATION) {
+        dispatch(setTransferState("done"));
         setNotify({
           title: (message.data as Notificatinon).title,
           description: (message.data as Notificatinon).description,

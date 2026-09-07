@@ -20,7 +20,7 @@ export default function PhoneScreen() {
       }}
       className={"rounded-[23px] border-[4px] "}
     >
-      <div className="w-[336px] h-[675px] rounded-2xl border-black border-[6px] p-5  flex relative bg-[#fff7e6] overflow-x-hidden">
+      <div className="w-[336px] h-[675px] rounded-2xl border-black justify-center border-[6px] p-5  flex relative bg-[#fff7e6] overflow-x-hidden">
         <div className="w-full absolute left-0 top-0 flex justify-center">
           <div className=" w-[36%] h-[18px] rounded-t-none rounded-[4px] bg-[#000] "></div>
         </div>

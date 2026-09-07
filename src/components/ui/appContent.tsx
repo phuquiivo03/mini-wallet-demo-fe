@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Input } from "./input";
-import { findManyByPhone, getBalance } from "@/lib/api";
+import { findManyByPhone } from "@/lib/api";
 import { Authen, User } from "@/lib/types";
 import Popup from "./popup";
 import UserTag from "./userTag";
@@ -27,19 +27,23 @@ function AppContent() {
       return;
     }
     findManyByPhone(phone).then((data) => {
-      if (data.users) {
-        setUsers(data.users);
+      if (data) {
+        setUsers(data);
       }
     });
   }, [phone]);
-
+  useEffect(() => {
+    console.log("new users", users);
+  }, [users]);
   useEffect(() => {
     if (!user) return;
 
     // fetch balance
-    getBalance(user.account?.id as string).then((data) => {
-      setBalance(data.balance);
-    });
+    fetch(("api/balance/" + user.account?.id) as string)
+      .then((res) => res.json())
+      .then((data) => {
+        setBalance(data.balance);
+      });
     console.log("refesh balance", transferState);
   }, [user]);
 
@@ -48,9 +52,11 @@ function AppContent() {
     if (transferState == "done") {
     }
     if (transferState == "done") {
-      getBalance(user.account?.id as string).then((data) => {
-        setBalance(data.balance);
-      });
+      fetch(("api/balance/" + user.account?.id) as string)
+        .then((res) => res.json())
+        .then((data) => {
+          setBalance(data.balance);
+        });
       dispatch(setTransferState("idle"));
       return;
     }
@@ -69,6 +75,7 @@ function AppContent() {
           <span className="text-[10px] text-primary font-semibold">VND</span>
         </div>
         <span className="text-primary font-bold text-[13px]">Transfer</span>
+        <span className="text-foreground  text-[11px] block">Phone number</span>
         <Input
           value={phone}
           onChange={(e) => {

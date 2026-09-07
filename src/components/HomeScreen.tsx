@@ -1,14 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import UserCard from "@/components/UserCard";
-import { createTransaction, getBalance, getJob, getUser } from "@/lib/api";
-import { User } from "@/lib/types";
-import InputField from "./inputField";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import PhoneScreen from "./Phone";
 import StoreProvider from "@/store/provider";
-const STORAGE_KEY = "sp-tr-account-ids";
 
 export default function HomeScreen() {
   const [screens, setScreens] = useState<number[]>([]);

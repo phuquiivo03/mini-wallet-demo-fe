@@ -59,9 +59,9 @@ export function login(phone: string, password: string) {
 }
 
 export function findManyByPhone(phone: string) {
-  return request<{
-    users: User[];
-  }>(`/users?options={"where": {"phoneNumber": "${phone}"}}`);
+  return request<User[]>(
+    `/users?options={"where": {"phoneNumber": "${phone}"}}`,
+  );
 }
 
 export function getUserTransactions(
