@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { WebSocketClient } from "@/lib/websocket/websocket.client";
-const WS_URL = "ws://localhost:3000/ws";
+const WS_URL =
+  process.env.NEXT_PUBLIC_WEB_SOCKET_URL || "ws://localhost:3000/ws";
 export function useWebSocket(authToken: string | null) {
   const clientRef = useRef<WebSocketClient | null>(null);
   useEffect(() => {
