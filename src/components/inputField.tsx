@@ -24,12 +24,14 @@ export default function InputField({
 }: InputFieldProps) {
   return (
     <Field className={className}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label className="text-[12px]" htmlFor={id}>
+        {label}
+      </Label>
       <Input
         id={id}
         type={type}
         className={
-          "bg-white active:bg-[#f9f9f9] p-1 pl-4 rounded-[8px] text-[16px] outline-0 active:bg-success active:outline-none text-black font-semibold focus-visible:outline-none"
+          "bg-white active:bg-[#f9f9f9] p-1 pl-4 rounded-[8px] text-[12px] outline-0 active:bg-success active:outline-none text-black font-semibold focus-visible:outline-none"
         }
         placeholder={placeholder}
         value={value}

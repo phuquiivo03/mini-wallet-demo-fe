@@ -1,10 +1,9 @@
 "use client";
-import { Authen, User } from "@/lib/types";
+import { User } from "@/lib/types";
 import InputField from "../inputField";
 import UserTag from "./userTag";
 import { Button } from "./button";
-import { useEffect, useState } from "react";
-import { createTransaction, getJob } from "@/lib/api";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { setTransferState } from "@/features/transfer/transferSlice";
 const delay = (ms: number) =>
@@ -48,24 +47,6 @@ function TransferForm({ receiver }: { receiver: User }) {
         dispatch(setTransferState("failed"));
       });
 
-    // for (let attempt = 0; attempt < 30; attempt += 1) {
-    //   if (!user) return;
-    //   const freshJob = await getJob(job.id);
-    //   console.log(job);
-    //   if (freshJob.status === "completed") {
-    //     //
-    //     console.log("set complete");
-    //     dispatch(setTransferState("done"));
-    //     return;
-    //   }
-
-    //   if (freshJob.status === "failed") {
-    //     throw new Error("Transfer failed.");
-    //   }
-
-    //   await delay(2000);
-    // }
-
     throw new Error("Job polling timeout.");
   }
 
@@ -93,7 +74,7 @@ function TransferForm({ receiver }: { receiver: User }) {
           id={""}
           label="Message"
           type="text"
-          placeholder="Amount"
+          placeholder="Message"
           onChange={(e) => {
             setMessage(e.target.value);
           }}

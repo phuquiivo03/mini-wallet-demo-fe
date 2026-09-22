@@ -78,3 +78,7 @@ export function getUserTransactions(
     },
   );
 }
+
+export function getServerHealth() {
+  return request<{ status: boolean; message: string }>("/health");
+}

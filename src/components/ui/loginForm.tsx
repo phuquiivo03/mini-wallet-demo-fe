@@ -43,9 +43,9 @@ function LoginForm() {
   };
 
   return (
-    <div className="h-[100%] flex items-center">
-      <div className="flex items-center p-10 flex-col justify-center border-[1px] rounded-2xl border-amber-100 bg-secondary">
-        <span className="text-center text-primary font-bold text-xl block mb-10!">
+    <div className="h-[100%] flex items-center p-2">
+      <div className="flex items-center p-4 flex-col justify-center border-[1px] rounded-2xl border-amber-100 bg-secondary">
+        <span className="text-center text-primary font-bold text-xl block mb-5!">
           Login
         </span>
         <div className=" flex flex-col gap-4">
@@ -53,7 +53,7 @@ function LoginForm() {
             type="text"
             id={"phone"}
             placeholder="Type phone number"
-            className=" p-1 pl-4 rounded-[8px] text-[16px] outline-0 "
+            className=" px-4 rounded-[8px] text-[12px] outline-0 "
             onChange={(e) => {
               setLoginData({ ...loginData, phone: e.target.value });
             }}
@@ -64,7 +64,7 @@ function LoginForm() {
             type="password"
             id={"password"}
             label="Password"
-            className="p-1 pl-4 rounded-[8px] text-[16px] outline-0 active:bg-success"
+            className="px-4  rounded-[8px] text-[16px] outline-0 active:bg-success"
             placeholder="Password"
             value={loginData.password}
             onChange={(e) => {
@@ -73,7 +73,7 @@ function LoginForm() {
           />
           <button
             onClick={handleSubmit}
-            className="rounded-2xl text-white bg-secondary font-bold cursor-pointer hover:opacity-70 mt-4!  relative "
+            className="rounded-2xl text-white bg-secondary font-bold cursor-pointer hover:opacity-70 mt-4! py-2  relative "
           >
             Login
             {loading && (

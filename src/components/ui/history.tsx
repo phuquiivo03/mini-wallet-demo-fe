@@ -3,10 +3,12 @@ import { Tranasction } from "@/lib/types";
 import { useEffect, useState } from "react";
 import TransactionHistoryItem from "./transactionHistoryItem";
 import { useAppSelector } from "@/store/hook";
+import { RotateCcw } from "lucide-react";
 
 function History() {
   const [transactions, setTransactions] = useState<Tranasction[]>([]);
   const authToken = useAppSelector((state) => state.auth.authToken);
+  const [reload, setReload] = useState(false);
   useEffect(() => {
     if (!authToken) return;
     fetch(`/api/transaction/user/${authToken}`)
@@ -15,6 +17,15 @@ function History() {
         setTransactions(data);
       });
   }, [authToken]);
+  useEffect(() => {
+    if (!reload) return;
+    fetch(`/api/transaction/user/${authToken}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTransactions(data);
+        setReload(false);
+      });
+  }, [reload]);
   const fomatByDate = (transactions: Tranasction[]) => {
     const formatedDate = transactions.map((tsx) => {
       return {
@@ -34,9 +45,20 @@ function History() {
   };
   return (
     <div className="mt-4!">
-      <span className="text-foreground font-semibold  text-[13px]">
-        History
-      </span>
+      <div className="flex w-full justify-between">
+        <span className="text-foreground font-semibold  text-[13px]">
+          History
+        </span>
+        <RotateCcw
+          onClick={() => {
+            setReload(true);
+          }}
+          size={14}
+          className={
+            reload ? "rotate-[-300deg] transition-all ease-in duration-100" : ""
+          }
+        />
+      </div>
       <div className="min-h-20 rounded-[8px] border-secondary-foreground w-full border-[1px] mt-2!">
         {fomatByDate(transactions).map((group, index) => {
           return (

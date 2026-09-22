@@ -108,7 +108,7 @@ function AppContent() {
         <span className="text-foreground font-semibold  text-[13px]">
           Contact
         </span>
-        <div className="min-h-20 rounded-[8px] border-secondary-foreground w-full border-[1px] mt-2!"></div>
+        <div className="rounded-[8px] border-secondary-foreground w-full border-[1px] mt-2!"></div>
       </div>
       <History></History>
     </div>
